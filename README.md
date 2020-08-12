@@ -6,6 +6,7 @@
 
 ### Description:
 Displays Lyrics from [Genius](https://genius.com) on the right side of [Spotify](https://spotify.com)  |  Part of the Spotify Pack
+- Will work only with the web app.
 
 
 ### How To Use:
