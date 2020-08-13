@@ -9,6 +9,10 @@
 // @author       TheNolle Studios
 // @description           Display Genius Lyrics on spotify
 
+// @supportURL   https://github.com/TheNolle/Spotify-GeniusLyrics/issues/new/choose
+// @updateURL    https://github.com/TheNolle/Spotify-GeniusLyrics/raw/master/userscript.user.js
+// @downloadURL  https://github.com/TheNolle/Spotify-GeniusLyrics/raw/master/userscript.user.js
+
 // @connect      genius.com
 // @require      https://openuserjs.org/src/libs/cuzi/GeniusLyrics.js
 
@@ -20,7 +24,7 @@
 // @grant        GM.registerMenuCommand
 // ==/UserScript==
 
-/* global genius, geniusLyrics, unsafeWindow, GM */ // eslint-disable-line no-unused-vars
+/* global genius, geniusLyrics */ // eslint-disable-line no-unused-vars
 
   // Create a new localStorage + Displays an Alert Box on First Use
     var FirstUse = localStorage.getItem('FirstUse') || '';
