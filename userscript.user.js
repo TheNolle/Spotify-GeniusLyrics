@@ -17,27 +17,15 @@
 // @grant        GM.xmlHttpRequest
 // @grant        GM.setValue
 // @grant        GM.getValue
+// @grant        GM.registerMenuCommand
 // ==/UserScript==
 
-/* global genius, geniusLyrics */ // eslint-disable-line no-unused-vars
-
-  // Create a new localStorage + Displays an Alert Box on First Use
-    var FirstUse = localStorage.getItem('FirstUse') || '';
-    if (FirstUse != 'No') {
-     alert(`_________________________________________________________________________
-                                Thank you for using our script!
-
-You can join our Discord (https://discord.gg/yUgp7k8) to support us!
-And also that if you encounter any bugs with our script, you can leave a [Bug Report] on the github (https://github.com/TheNolle)
-                                                                                - TheNolle Studios
-_________________________________________________________________________
-`);
-     localStorage.setItem('FirstUse','No');
-    }
+/* global genius, geniusLyrics, unsafeWindow, GM */ // eslint-disable-line no-unused-vars
 
 'use strict'
 
 const scriptName = 'SpotifyGeniusScript'
+const scriptNameFull = 'Spotify Genius Lyrics'
 var resizeLeftContainer
 var resizeContainer
 var optionCurrentSize = 30.0
@@ -91,6 +79,7 @@ function getCleanLyricsContainer () {
     topContainer.parentNode.insertBefore(resizeContainer, topContainer.nextSibling)
   }
   resizeLeftContainer = topContainer
+  resizeContainer.style.zIndex = 10
 
   return document.getElementById('lyricscontainer')
 }
@@ -110,6 +99,7 @@ function listSongs (hits, container, query) {
   if (!container) {
     container = getCleanLyricsContainer()
   }
+  container.style.backgroundColor = 'rgba(0,0,0,.8)'
 
   // Back to search button
   const backToSearchButton = document.createElement('a')
@@ -270,6 +260,16 @@ function main () {
   }
 }
 
+window.setTimeout(function removeAds () {
+  try {
+    if (document.querySelector('.Root__top-bar header>button').outerHTML.toLowerCase().indexOf('premium') !== -1) {
+      document.querySelector('.Root__top-bar header>button').remove()
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}, 3000)
+
 const genius = geniusLyrics({
   GM: GM,
   scriptName: scriptName,
@@ -288,3 +288,5 @@ const genius = geniusLyrics({
   initResize: initResize,
   onResize: onResize
 })
+
+GM.registerMenuCommand(scriptNameFull + ' - Show lyrics', () => addLyrics(true))
